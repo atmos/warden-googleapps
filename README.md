@@ -1,7 +1,60 @@
 warden-googleapps
 =================
 
-A Warden middleware for google apps
+A Warden middleware for google apps.  It needs a little work but definitely authenticates you just fine in Rack apps.
+
+Example
+=======
+
+    module DirectoryAdmin
+      class App < Sinatra::Default
+        disable :show_errors
+        disable :show_exceptions
+
+        use Warden::Manager do |manager|
+          manager.default_strategies :google_apps
+          manager.failure_app = BadAuthentication
+
+          manager.config[:google_apps_domain] = 'example.org'
+        end
+
+        helpers do
+          def ensure_authenticated
+            unless env['warden'].authenticate!
+              throw(:warden)
+            end
+          end
+
+          def user
+            env['warden'].user
+          end
+        end
+
+        get '/' do
+          ensure_authenticated
+          haml "%h2= 'Hello There, #{user.full_name}!'"
+        end
+
+        get '/logout' do
+          env['warden'].logout
+          haml "%h2= 'Peace!'"
+        end
+      end
+
+      class BadAuthentication < Sinatra::Default
+        get '/unauthenticated' do
+          status 403
+          haml "%h3= 'Unable to authenticate, sorry bud.'"
+        end
+      end
+    end
+
+
+Enabling on Google
+==================
+Be sure you have Federated Login using OpenID enabled under your Advanced Settings Tab
+
+![Your Google Apps Admin Dashboard](http://img.skitch.com/20100103-cdjtbyyw2xsbwya92r6gcd47hr.jpg "Check the box to enable")
 
 Developing
 ==========
