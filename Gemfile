@@ -1,7 +1,7 @@
 only :release do
-  gem 'warden'
+  gem 'warden',           '~>0.7.0'
   gem 'sinatra',          '~>0.9.4'
-  gem 'ruby-openid',      '=2.1.6',  :require_as => 'openid'
+  gem 'ruby-openid',      '~>2.1.6', :require_as => 'openid'
 end
 
 only :test do

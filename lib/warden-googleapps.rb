@@ -12,5 +12,6 @@ module Warden
 end
 
 require File.dirname(__FILE__)+'/warden-googleapps/user'
+require File.dirname(__FILE__)+'/warden-googleapps/version'
 require File.dirname(__FILE__)+'/warden-googleapps/strategy'
 require File.dirname(__FILE__)+'/warden-googleapps/gapps_openid'

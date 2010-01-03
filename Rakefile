@@ -3,6 +3,8 @@ require 'rubygems/specification'
 require 'date'
 require 'bundler'
 
+require 'lib/warden-googleapps/version'
+
 task :default => [:spec]
 
 require 'spec/rake/spectask'
@@ -18,12 +20,12 @@ Spec::Rake::SpecTask.new do |t|
   t.rcov_opts << '--sort' << 'coverage' << '--sort-reverse'
 end
 
-GEM = "warden-googleapps"
-GEM_VERSION = "0.0.1"
-AUTHOR = "Corey Donohoe"
-EMAIL = "atmos@atmos.org"
-HOMEPAGE = "http://github.com/atmos/warden-googleapps"
-SUMMARY = "A warden strategy to use Google's Federated OpenID with Google Apps"
+GEM         = "warden-googleapps"
+GEM_VERSION = Warden::GoogleApps::VERSION
+AUTHOR      = "Corey Donohoe"
+EMAIL       = "atmos@atmos.org"
+HOMEPAGE    = "http://github.com/atmos/warden-googleapps"
+SUMMARY     = "A warden strategy to use Google's Federated OpenID with Google Apps"
 
 spec = Gem::Specification.new do |s|
   s.name = GEM
@@ -57,4 +59,3 @@ task :make_spec do
     file.puts spec.to_ruby
   end
 end
-

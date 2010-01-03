@@ -38,9 +38,11 @@ Warden::Strategies.add(:google_apps) do
     ::OpenID::Store::Filesystem.new("#{Dir.tmpdir}/tmp/openid")
   end
 
+  def domain
+    env['warden'].config[:google_apps_domain]
+  end
+
   def open_id_endpoint
-    # TODO Get this exposed properly via warden
-    domain = env['warden'].instance_variable_get('@config')[:google_apps_domain]
     'https://www.google.com/accounts/o8/site-xrds?hd=%s' % domain
   end
 
