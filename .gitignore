@@ -1,0 +1,9 @@
+pkg
+coverage
+development.db
+tmp
+webrat.log
+.DS_Store
+bin
+vendor
+*.gemspec
