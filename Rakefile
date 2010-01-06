@@ -39,10 +39,10 @@ spec = Gem::Specification.new do |s|
   s.email = EMAIL
   s.homepage = HOMEPAGE
 
-  manifest = Bundler::Dsl.load_gemfile(File.dirname(__FILE__) + '/Gemfile')
-  manifest.dependencies.each do |d|
-    next unless d.only && d.only.include?('release')
-    s.add_dependency(d.name, d.version)
+  bundle = Bundler::Bundle.load(File.dirname(__FILE__) + '/Gemfile')
+  bundle.environment.dependencies.each do |dep|
+    next unless dep.only && dep.only.include?('runtime')
+    s.add_dependency(dep.name, "#{dep.version.to_s}")
   end
 
   s.require_path = 'lib'

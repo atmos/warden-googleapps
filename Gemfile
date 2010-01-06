@@ -8,7 +8,7 @@ only :test do
   gem 'rake'
   gem 'rspec',                       :require_as => 'spec'
   gem 'rcov'
-  gem 'bundler',          '>=0.7.0'
+  gem 'bundler',          '~>0.8.0'
   gem 'webrat',           '~>0.5.0'
   gem 'rack-test',        '~>0.5.2', :require_as => 'rack/test'
   gem 'fakeweb',          '>=1.2.5'
