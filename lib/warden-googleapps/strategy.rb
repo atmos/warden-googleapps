@@ -38,12 +38,20 @@ Warden::Strategies.add(:google_apps) do
     ::OpenID::Store::Filesystem.new("#{Dir.tmpdir}/tmp/openid")
   end
 
-  def domain
+  def google_apps_domain
     env['warden'].config[:google_apps_domain]
   end
 
+  def domain
+    'https://www.google.com/accounts/o8/site-xrds?hd=%s' % google_apps_domain
+  end
+
+  def endpoint
+    env['warden'].config[:google_apps_endpoint]
+  end
+
   def open_id_endpoint
-    'https://www.google.com/accounts/o8/site-xrds?hd=%s' % domain
+    endpoint || domain
   end
 
   def add_ax_fields(open_id_request)

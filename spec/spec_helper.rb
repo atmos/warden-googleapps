@@ -1,7 +1,10 @@
-Bundler.require_env(:test)
+require 'rubygems'
+require 'bundler'
+
+Bundler.setup(:runtime, :test)
+Bundler.require(:runtime, :test)
 
 require File.join(File.dirname(__FILE__), '..', 'lib', 'warden-googleapps')
-
 require 'pp'
 
 FakeWeb.allow_net_connect = false

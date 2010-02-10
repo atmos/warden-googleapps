@@ -5,7 +5,21 @@ A Warden middleware for google apps.  It needs a little work but definitely auth
 
 Example
 =======
+Gemfile
+-------
+    source :gemcutter
 
+    gem 'haml',                '~>2.2.0'
+    gem 'sinatra',             '~>0.9.4'
+    gem 'ruby-openid',                    :require => 'openid',     :git => 'git://github.com/pelle/ruby-openid.git'
+    gem 'warden-googleapps',    '=0.0.3'
+
+    group :development do
+      gem 'shotgun'
+    end
+
+app.rb
+------
     module DirectoryAdmin
       class App < Sinatra::Default
         disable :show_errors
@@ -15,7 +29,8 @@ Example
           manager.default_strategies :google_apps
           manager.failure_app = BadAuthentication
 
-          manager.config[:google_apps_domain] = 'example.org'
+          manager[:google_apps_domain]   = 'example.org'
+          # manager[:google_apps_endpoint] = 'http://www.google.com/accounts/o8/id' # this is gmail
         end
 
         helpers do
@@ -49,9 +64,12 @@ Example
       end
     end
 
-
-Enabling on Google
+Enabling on GMail
 ==================
+It should just work, even for localhost.
+
+Enabling on Google Apps for Domains
+===================================
 Be sure you have Federated Login using OpenID enabled under your Advanced Settings Tab
 
 ![Your Google Apps Admin Dashboard](http://img.skitch.com/20100103-cdjtbyyw2xsbwya92r6gcd47hr.jpg "Check the box to enable")
@@ -59,5 +77,5 @@ Be sure you have Federated Login using OpenID enabled under your Advanced Settin
 Developing
 ==========
     % gem install bundler
-    % gem bundle
-    % bin/rake repackage
+    % bundle install
+    % bundle exec rake repackage

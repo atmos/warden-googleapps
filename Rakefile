@@ -14,7 +14,7 @@ Spec::Rake::SpecTask.new do |t|
   t.spec_opts = %w(-fs --color)
   t.spec_opts << '--loadby' << 'random'
 
-  t.rcov_opts << '--exclude' << 'spec'
+  t.rcov_opts << '--exclude' << 'spec,.bundle'
   t.rcov = ENV.has_key?('NO_RCOV') ? ENV['NO_RCOV'] != 'true' : true
   t.rcov_opts << '--text-summary'
   t.rcov_opts << '--sort' << 'coverage' << '--sort-reverse'
@@ -39,10 +39,10 @@ spec = Gem::Specification.new do |s|
   s.email = EMAIL
   s.homepage = HOMEPAGE
 
-  bundle = Bundler::Bundle.load(File.dirname(__FILE__) + '/Gemfile')
-  bundle.environment.dependencies.each do |dep|
-    next unless dep.only && dep.only.include?('runtime')
-    s.add_dependency(dep.name, "#{dep.version.to_s}")
+  bundle = Bundler::Definition.from_gemfile('Gemfile')
+  bundle.dependencies.each do |dep|
+    next unless dep.groups.include?(:runtime)
+    s.add_dependency(dep.name, dep.version_requirements.to_s)
   end
 
   s.require_path = 'lib'
