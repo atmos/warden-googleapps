@@ -66,6 +66,8 @@ Enabling on GMail
 ==================
 It should just work, even for localhost.
 
+Also checkout [sinatra-auth-gmail](http://github.com/atmos/sinatra-auth-gmail).
+
 Enabling on Google Apps for Domains
 ===================================
 Be sure you have Federated Login using OpenID enabled under your Advanced Settings Tab
