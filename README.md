@@ -10,8 +10,6 @@ Gemfile
     source :gemcutter
 
     gem 'haml',                '~>2.2.0'
-    gem 'sinatra',             '~>0.9.4'
-    gem 'ruby-openid',                    :require => 'openid',     :git => 'git://github.com/pelle/ruby-openid.git'
     gem 'warden-googleapps',    '=0.0.3'
 
     group :development do
