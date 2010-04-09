@@ -2,11 +2,11 @@ source :gemcutter
 
 group :runtime do
   gem 'warden',           '~>0.9.2'
-  gem 'sinatra',          '~>0.9.4'
   gem 'ruby-openid',      '~>2.1.7', :require => 'openid'
 end
 
 group :test do
+  gem 'sinatra',          '~>1.0'
   gem 'rake'
   gem 'rspec',            '~>1.2.9', :require => 'spec'
   gem 'rcov'
