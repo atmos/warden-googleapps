@@ -53,6 +53,8 @@ module OpenID
   end
 
   def self.discover(uri)
+    # Set the CA file for the fetcher so the HTTPS requests will not issue warnings.
+    fetcher.ca_file = File.join(File.dirname(__FILE__), 'ca-bundle.crt')
     discovery = GoogleDiscovery.new
     info = discovery.perform_discovery(uri)
     if not info.nil?
