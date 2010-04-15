@@ -1,7 +1,7 @@
-source :gemcutter
+source :rubygems
 
 group :runtime do
-  gem 'warden',           '~>0.9.2'
+  gem 'warden',           '~>0.10'
   gem 'ruby-openid',      '~>2.1.7', :require => 'openid'
 end
 
