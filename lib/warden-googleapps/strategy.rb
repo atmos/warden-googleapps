@@ -3,6 +3,12 @@ Warden::Strategies.add(:google_apps) do
   AxFirstName = 'http://axschema.org/namePerson/first'
   AxLastName  = 'http://axschema.org/namePerson/last'
 
+  # Need to make sure that we have a pure representation of the query string.
+  # Rails adds an "action" parameter which causes the openid gem to error
+  def params
+    @params ||= Rack::Utils.parse_query(request.query_string)
+  end
+
   def authenticate!
     if params['openid.mode']
       response = consumer.complete(params, absolute_url(request, request.path))
