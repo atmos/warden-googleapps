@@ -28,7 +28,11 @@ Warden::Strategies.add(:google_apps) do
     elsif params['RelayState']
       raise GoogleAppsMisconfiguredError, "Warden::GoogleApps only works with OpenID Federed Login for Google Apps"
     else
-      google_discovery = OpenID.discover(open_id_endpoint)
+      begin
+        google_discovery = OpenID.discover(open_id_endpoint)
+      rescue Exception => e
+        fail!("Exception during OpenID discovery #{e.message}"
+      end
       open_id_request = consumer.begin(google_discovery.first)
       add_ax_fields(open_id_request)
       redirect!(open_id_request.redirect_url(absolute_url(request), redirect_url(request)))
