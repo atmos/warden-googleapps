@@ -30,8 +30,8 @@ Warden::Strategies.add(:google_apps) do
     else
       begin
         google_discovery = OpenID.discover(open_id_endpoint)
-      rescue Exception => e
-        fail!("Exception during OpenID discovery #{e.message}"
+      rescue StandardError => e
+        fail!("Exception during OpenID discovery #{e.message}")
       end
       open_id_request = consumer.begin(google_discovery.first)
       add_ax_fields(open_id_request)
