@@ -45,7 +45,7 @@ Warden::Strategies.add(:google_apps) do
   end
 
   def open_id_store
-    ::OpenID::Store::Filesystem.new("#{Dir.tmpdir}/tmp/openid")
+    env['warden'].config[:open_id_store] || ::OpenID::Store::Filesystem.new("#{Dir.tmpdir}/tmp/openid")
   end
 
   def google_apps_domain
