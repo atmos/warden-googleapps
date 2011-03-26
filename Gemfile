@@ -10,7 +10,7 @@ group :test do
   gem 'rake'
   gem 'rspec',            '~>1.2.9', :require => 'spec'
   gem 'rcov'
-  gem 'bundler',          '~>0.9.3'
+  gem 'bundler',          '~>1.0.10'
   gem 'webrat',           '~>0.7.0'
   gem 'rack-test',        '~>0.5.0', :require => 'rack/test'
   gem 'fakeweb',          '>=1.2.6'
