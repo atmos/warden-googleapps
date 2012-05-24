@@ -19,50 +19,50 @@ Gemfile
 app.rb
 ------
 ```ruby
-    module DirectoryAdmin
-      class App < Sinatra::Default
-        disable :show_errors
-        disable :show_exceptions
+module DirectoryAdmin
+  class App < Sinatra::Default
+    disable :show_errors
+    disable :show_exceptions
 
-        use Warden::Manager do |manager|
-          manager.default_strategies :google_apps
-          manager.failure_app = BadAuthentication
+    use Warden::Manager do |manager|
+      manager.default_strategies :google_apps
+      manager.failure_app = BadAuthentication
 
-          manager[:google_apps_domain]   = 'example.org'
-          # manager[:google_apps_endpoint] = 'http://www.google.com/accounts/o8/id' # this is gmail
-          # manager[:redirect_url]         = 'http://example.org/verify_url' # endpoint where google apps redirects to after successful authentication
-        end
+      manager[:google_apps_domain]   = 'example.org'
+      # manager[:google_apps_endpoint] = 'http://www.google.com/accounts/o8/id' # this is gmail
+      # manager[:redirect_url]         = 'http://example.org/verify_url' # endpoint where google apps redirects to after successful authentication
+    end
 
-        helpers do
-          def ensure_authenticated
-            unless env['warden'].authenticate!
-              throw(:warden)
-            end
-          end
-
-          def user
-            env['warden'].user
-          end
-        end
-
-        get '/' do
-          ensure_authenticated
-          haml "%h2= 'Hello There, #{user.full_name}!'"
-        end
-
-        get '/logout' do
-          env['warden'].logout
-          haml "%h2= 'Peace!'"
+    helpers do
+      def ensure_authenticated
+        unless env['warden'].authenticate!
+          throw(:warden)
         end
       end
 
-      class BadAuthentication < Sinatra::Default
-        get '/unauthenticated' do
-          status 403
-          haml "%h3= 'Unable to authenticate, sorry bud.'"
-        end
+      def user
+        env['warden'].user
       end
     end
+
+    get '/' do
+      ensure_authenticated
+      haml "%h2= 'Hello There, #{user.full_name}!'"
+    end
+
+    get '/logout' do
+      env['warden'].logout
+      haml "%h2= 'Peace!'"
+    end
+  end
+
+  class BadAuthentication < Sinatra::Default
+    get '/unauthenticated' do
+      status 403
+      haml "%h3= 'Unable to authenticate, sorry bud.'"
+    end
+  end
+end
 ```
 Enabling on GMail
 ==================
