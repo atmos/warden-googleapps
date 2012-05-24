@@ -18,6 +18,7 @@ Gemfile
 
 app.rb
 ------
+```ruby
     module DirectoryAdmin
       class App < Sinatra::Default
         disable :show_errors
@@ -62,7 +63,7 @@ app.rb
         end
       end
     end
-
+```
 Enabling on GMail
 ==================
 It should just work, even for localhost.
