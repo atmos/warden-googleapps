@@ -29,8 +29,8 @@ module DirectoryAdmin
       manager.failure_app = BadAuthentication
 
       manager[:google_apps_domain]   = 'example.org'
-      # manager[:google_apps_endpoint] = 'http://www.google.com/accounts/o8/id' # this is gmail
-      # manager[:redirect_url]         = 'http://example.org/verify_url' # endpoint where google apps redirects to after successful authentication
+      # manager[:google_apps_endpoint]      = 'http://www.google.com/accounts/o8/id' # this is gmail
+      # manager[:google_apps_redirect_url]  = 'http://example.org/verify_url' # endpoint where google apps redirects to after successful authentication
     end
 
     helpers do
